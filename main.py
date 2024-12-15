@@ -37,8 +37,7 @@ async def create_user(user: UserBase, db: db_dependency):
     db_user = models.User(**user.dict())
     db.add(db_user)
     db.commit()
-    return db_user  # Return the created user
-
+    return db_user 
 @app.get("/user/{user_id}",status_code=status.HTTP_200_OK)
 async def get_user(user_id: int, db: db_dependency):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
