@@ -15,13 +15,12 @@ class PostBase(BaseModel):
     user_id: int
 
 class UserBase(BaseModel):
-    username: str  # Use `str` instead of `String`
+    username: str 
 
 class PostBaseUpdate(BaseModel):
     title: Optional[str] = None
     content: Optional[str] = None
     user_id: Optional[int] = None
-# Dependency for database session
 def get_db():
     db = SessionLocal()
     try:
@@ -31,7 +30,6 @@ def get_db():
 
 db_dependency = Annotated[session, Depends(get_db)]
 
-# Endpoint to create a user
 @app.post("/user", status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserBase, db: db_dependency):
     db_user = models.User(**user.dict())
